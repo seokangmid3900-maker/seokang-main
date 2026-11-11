@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>관리자 | 중등관 상담 신청 현황</title>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0B2A6F;--gold:#F28C28;--goldt:#B4560A;--ink:#1E2540;--sub:#555B6E;--line:#E2E4EB;--soft:#F2F3F7;--bg:#F5F6FA;--red:#C2364F}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Gowun Dodum',sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+.j{font-family:'Jua',sans-serif;font-weight:400}
+header{background:var(--navy);color:#fff;padding:16px 0}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+header small{color:var(--gold);font-size:12px;letter-spacing:.15em;display:block}
+header h1{font-size:20px}
+.btn{border:0;border-radius:999px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:14px;cursor:pointer;min-height:40px}
+.btn.n{background:var(--gold);color:var(--navy)}.btn.w{background:#fff;color:var(--navy)}.btn.r{background:#fde8ec;color:var(--red)}.btn.s{padding:5px 10px;font-size:12.5px;min-height:32px;white-space:nowrap}
+.login{max-width:360px;margin:80px auto;background:#fff;border-radius:18px;padding:28px;border:1px solid var(--line)}
+.login h2{color:var(--navy);margin-bottom:14px;font-size:22px}
+.login input{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:12px;font-size:16px;margin-bottom:10px;font-family:inherit}
+.err{color:var(--red);font-size:14px;min-height:20px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:18px 0}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;cursor:pointer;text-align:left;font-family:inherit}
+.kpi small{color:var(--sub);font-size:13px;display:block}.kpi b{font-size:28px;color:var(--navy)}
+.kpi.on{background:var(--navy)}.kpi.on small{color:var(--gold)}.kpi.on b{color:#fff}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;overflow-x:auto}
+.bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.bar input{padding:9px 12px;border:1.5px solid var(--line);border-radius:999px;font-family:inherit;font-size:14px;min-width:220px}
+table{border-collapse:collapse;width:100%;min-width:1100px;font-size:13.5px}
+th{text-align:left;background:var(--soft);color:var(--sub);padding:9px 8px;white-space:nowrap;border-bottom:1px solid var(--line)}
+td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+td a{color:var(--navy);font-weight:700}
+select,textarea{font-family:inherit;font-size:13px;border:1.5px solid var(--line);border-radius:8px;padding:5px 6px}
+textarea{width:180px;min-height:52px}
+.st{display:inline-block;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;background:var(--soft);color:var(--navy)}
+.st.new{background:#FFF1E4;color:var(--goldt)}.st.reg{background:var(--navy);color:#fff}
+.small{color:var(--sub);font-size:12.5px;white-space:pre-wrap;max-width:200px}
+.empty{text-align:center;color:var(--sub);padding:40px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;display:none}
+.smsbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px;font-size:14px}
+.dot{width:10px;height:10px;border-radius:999px;display:inline-block;margin-right:6px}
+.dlg{position:fixed;inset:0;background:rgba(30,37,64,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:20}
+.dlg .box{background:#fff;border-radius:18px;padding:20px;max-width:440px;width:100%}
+.dlg h3{color:var(--navy);font-size:20px;margin-bottom:4px}
+.dlg textarea{width:100%;min-height:150px;font-size:15px;margin-top:8px}
+.tpl{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tpl button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:5px 11px;font-family:inherit;font-size:13px;cursor:pointer}
+.dlg .row{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}
+.bytes{font-size:12px;color:var(--sub);text-align:right}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div><small>SEOKANG MATH · 중등관 · ADMIN</small><h1 class="j">중등관 상담 신청 현황</h1></div>
+  <div id="tools" style="display:none;gap:8px"><a class="btn w" href="/grade.html" style="text-decoration:none;display:inline-flex;align-items:center">반배치 분석실</a><a class="btn w" href="/qr.html" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center">QR 코드 받기</a><button class="btn w" id="csv">엑셀(CSV) 받기</button><button class="btn n" id="reload">새로고침</button></div></div></header>
+
+<div class="login" id="login">
+  <h2 class="j">관리자 로그인</h2>
+  <label for="pw" style="font-size:14px;color:var(--sub)">관리자 비밀번호</label>
+  <input type="password" id="pw" autocomplete="current-password">
+  <div class="err" id="lerr" role="alert"></div>
+  <button class="btn n" style="width:100%" id="go">확인</button>
+</div>
+
+<main class="wrap" id="main" style="display:none">
+  <div class="kpis" id="kpis"></div>
+  <div class="smsbar" id="smsbar"></div>
+  <div class="card">
+    <div class="bar"><input type="search" id="q" placeholder="이름 · 학교 · 연락처 검색" aria-label="검색"><span id="cnt" class="small"></span></div>
+    <table><thead><tr><th>신청일</th><th>학생</th><th>학교 · 학년</th><th>재원</th><th>학부모 연락처</th><th>상담</th><th>희망 요일</th><th>현재 학습</th><th>경로</th><th>궁금한 점</th><th>상태</th><th>관리 메모</th><th>문자</th><th></th></tr></thead>
+    <tbody id="rows"></tbody></table>
+  </div>
+</main>
+<div class="dlg" id="dlg" role="dialog" aria-modal="true" aria-labelledby="dlgT"><div class="box">
+  <h3 class="j" id="dlgT">학부모 안내 문자</h3><div class="small" id="dlgTo"></div>
+  <div class="tpl" id="tpl"></div>
+  <label for="msgText" class="small" style="display:block;margin-top:8px">내용 (고쳐서 보낼 수 있어요)</label>
+  <textarea id="msgText"></textarea><div class="bytes" id="bytes"></div>
+  <div class="row"><button class="btn w s" id="cancel" style="border:1px solid var(--line)">닫기</button><button class="btn w s" id="viaPhone" style="border:1px solid var(--navy)">내 휴대폰으로 보내기</button><button class="btn n s" id="send">문자 발송</button></div>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+let PW='',APPS=[],STATUSES=[],FILTER='전체',SMS={ready:false,phones:[]},CUR=null;
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const toast=t=>{const e=$('#toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',1800);};
+const fmt=iso=>{const d=new Date(iso);return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;};
+async function api(body){
+  const r=await fetch('/api/admin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:PW,...body})});
+  const j=await r.json();if(!j.ok)throw new Error(j.message||'오류');APPS=j.apps;STATUSES=j.statuses;SMS={ready:j.smsReady,phones:j.adminPhones||[]};render();
+}
+function render(){
+  const cnt=s=>APPS.filter(a=>a.status===s).length;
+  const ks=[['전체',APPS.length],['추가 반배치',APPS.filter(a=>a.type==='추가 반배치').length],['접수',cnt('접수')],['상담 완료',cnt('상담 완료')],['반배치 예약',cnt('반배치 예약')],['등록',cnt('등록')]];
+  $('#kpis').innerHTML=ks.map(([k,v])=>`<button class="kpi ${FILTER===k?'on':''}" data-k="${k}"><small>${k==='접수'?'접수 (연락 전)':k}</small><b class="j">${v}</b></button>`).join('');
+  document.querySelectorAll('.kpi').forEach(b=>b.onclick=()=>{FILTER=b.dataset.k;render();});
+  const q=$('#q').value.trim();
+  const list=APPS.filter(a=>(FILTER==='전체'||(FILTER==='추가 반배치'?a.type==='추가 반배치':a.status===FILTER))&&(!q||[a.studentName,a.school,a.parentPhone,a.parentName].join(' ').includes(q)));
+  $('#cnt').textContent=`${list.length}건`;
+  $('#rows').innerHTML=list.length?list.map(a=>`<tr>
+    <td>${fmt(a.createdAt)}</td><td>${a.type==='추가 반배치'?`<span class="st new">추가 반배치 ${esc(a.slot)}</span><br>`:''}<b>${esc(a.studentName)}</b><div class="small">${esc(a.parentName)}${a.referrer?'<br>소개: '+esc(a.referrer):''}${a.adConsent?'<br>소식 수신 동의':''}</div></td>
+    <td>${esc(a.school)}<div class="small">${esc(a.grade)}</div></td><td>${esc(a.member)}</td>
+    <td><a href="tel:${esc(a.parentPhone)}">${esc(a.parentPhone)}</a></td>
+    <td>${esc(a.method)}<div class="small">${esc(a.when)}</div></td><td>${esc(a.days)}</td>
+    <td>${esc(a.study)}<div class="small">${esc(a.progress)}</div></td><td>${esc(a.source)}</td>
+    <td><div class="small">${esc(a.memo)}</div></td>
+    <td><select data-id="${a.id}" class="sel" aria-label="상태">${STATUSES.map(s=>`<option ${s===a.status?'selected':''}>${s}</option>`).join('')}</select></td>
+    <td><textarea data-id="${a.id}" class="mm" aria-label="관리 메모">${esc(a.adminMemo)}</textarea></td>
+    <td><button class="btn n s msg" data-id="${a.id}">문자 보내기</button><div class="small">${(a.sms||[]).length?`보냄 ${(a.sms||[]).length}회 · ${fmt(a.sms[a.sms.length-1].at)}`:''}${a.adminAlert?`<br>관리자 알림 ${a.adminAlert.ok?'✓':'✗'}`:''}</div></td>
+    <td><button class="btn r s" data-id="${a.id}" data-n="${esc(a.studentName)}">삭제</button></td></tr>`).join(''):`<tr><td colspan="14" class="empty">신청 내역이 없습니다.</td></tr>`;
+  document.querySelectorAll('.sel').forEach(s=>s.onchange=async()=>{try{await api({action:'update',id:s.dataset.id,status:s.value});toast('상태를 바꿨습니다');}catch(e){toast(e.message);}});
+  document.querySelectorAll('.mm').forEach(t=>t.onchange=async()=>{try{await api({action:'update',id:t.dataset.id,adminMemo:t.value});toast('메모를 저장했습니다');}catch(e){toast(e.message);}});
+  $('#smsbar').innerHTML=SMS.ready
+    ?`<span><span class="dot" style="background:#2E9E6B"></span><b>문자 발송 사용 중</b></span><span class="small">신청 알림 받는 번호: ${SMS.phones.join(', ')||'없음 (ADMIN_PHONES 설정 필요)'}</span><button class="btn w s" id="test" style="border:1px solid var(--line)">알림 시험 발송</button>`
+    :`<span><span class="dot" style="background:#F28C28"></span><b>문자 자동 발송 설정 전</b></span><span class="small">지금은 '내 휴대폰으로 보내기'로 보낼 수 있습니다. 자동 발송은 README의 '문자 발송 설정'을 참고하세요.</span>`;
+  const tb=$('#test');if(tb)tb.onclick=async()=>{try{await api({action:'test'});toast('관리자 번호로 시험 문자를 보냈습니다');}catch(e){toast(e.message);}};
+  document.querySelectorAll('.msg').forEach(b=>b.onclick=()=>openMsg(APPS.find(a=>a.id===b.dataset.id)));
+  document.querySelectorAll('.btn.r').forEach(b=>b.onclick=async()=>{if(!confirm(`${b.dataset.n} 신청을 삭제할까요? 되돌릴 수 없습니다.`))return;try{await api({action:'delete',id:b.dataset.id});toast('삭제했습니다');}catch(e){toast(e.message);}});
+}
+const TPL={
+ '접수 확인':a=>`[서강수학원 중등관] ${a.studentName} 학부모님, 상담 신청이 접수되었습니다. 담당 선생님이 ${a.when&&a.when!=='언제든'?a.when.replace(/ \(.*\)/,'')+'에 ':''}연락드리겠습니다.\n문의 02.406.3900`,
+ '반배치고사 안내':a=>`[서강수학원 중등관] ${a.studentName} 학부모님, 반배치고사 일정 안내드립니다.\n· 일시: ○월 ○일(○) ○○:○○\n· 장소: 서울 송파구 거마로 51 (본관)\n· 준비물: 필기구\n문의 02.406.3900`,
+ '부재중':a=>`[서강수학원 중등관] ${a.studentName} 학부모님, 상담 신청 확인 후 연락드렸으나 통화가 어려워 문자 남깁니다. 편하신 시간을 알려 주시면 다시 연락드리겠습니다.\n문의 02.406.3900`,
+ '반배치 예약 확인':a=>`[서강수학원 중등관] ${a.studentName} 학부모님, 추가 반배치고사 예약이 완료되었습니다.\n· 일시: ${a.when||''}\n· 장소: 서강수학원 본관 2층 (거마로 51)\n· 준비물: 필기구\n시험 후 결과 상담 시간을 정해 드립니다. 문의 02.406.3900`,
+ '반배치 전날 안내':a=>`[서강수학원 중등관] 내일 ${a.when||''} ${a.studentName} 반배치고사가 있습니다. 10분 전까지 서강수학원 본관 2층으로 와 주세요. 준비물: 필기구\n문의 02.406.3900`,
+ '상담 감사':a=>`[서강수학원 중등관] ${a.studentName} 학부모님, 상담에 함께해 주셔서 감사합니다. 궁금하신 점은 언제든 연락 주세요.\n문의 02.406.3900`};
+const bytes=t=>[...t].reduce((n,c)=>n+(c.charCodeAt(0)>127?2:1),0);
+function openMsg(a){CUR=a;$('#dlgTo').textContent=`받는 사람: ${a.studentName} 학부모 ${a.parentPhone}`;
+  $('#tpl').innerHTML=Object.keys(TPL).map(k=>`<button data-k="${k}">${k}</button>`).join('');
+  document.querySelectorAll('#tpl button').forEach(b=>b.onclick=()=>{$('#msgText').value=TPL[b.dataset.k](a);upd();});
+  $('#msgText').value=TPL[a.type==='추가 반배치'?'반배치 예약 확인':'접수 확인'](a);upd();$('#send').style.display=SMS.ready?'':'none';$('#dlg').style.display='flex';$('#msgText').focus();}
+function upd(){const n=bytes($('#msgText').value);$('#bytes').textContent=`${n}byte · ${n>90?'장문(LMS)':'단문(SMS)'}`;}
+$('#msgText').oninput=upd;$('#cancel').onclick=()=>$('#dlg').style.display='none';
+$('#send').onclick=async()=>{const b=$('#send');b.disabled=true;try{await api({action:'sms',id:CUR.id,text:$('#msgText').value});$('#dlg').style.display='none';toast('문자를 보냈습니다');}catch(e){toast(e.message);}b.disabled=false;};
+$('#viaPhone').onclick=async()=>{const t=$('#msgText').value,ios=/iPhone|iPad|iPod/.test(navigator.userAgent);
+  location.href=`sms:${CUR.parentPhone.replace(/-/g,'')}${ios?'&':'?'}body=${encodeURIComponent(t)}`;
+  try{await api({action:'smslog',id:CUR.id,text:t});}catch(e){} $('#dlg').style.display='none';};
+$('#q').oninput=render;
+async function login(){
+  PW=$('#pw').value;$('#lerr').textContent='';
+  try{await api({action:'list'});$('#login').style.display='none';$('#main').style.display='block';$('#tools').style.display='flex';}
+  catch(e){$('#lerr').textContent=e.message;}
+}
+$('#go').onclick=login;$('#pw').onkeydown=e=>{if(e.key==='Enter')login();};
+$('#reload').onclick=async()=>{try{await api({action:'list'});toast('새로고침했습니다');}catch(e){toast(e.message);}};
+$('#csv').onclick=()=>{
+  const cols=[['createdAt','신청일시'],['studentName','학생'],['school','학교'],['grade','학년'],['member','재원'],['parentName','학부모'],['parentPhone','연락처'],['method','상담 방법'],['when','연락 시간'],['days','희망 요일'],['study','현재 학습'],['progress','진도'],['type','구분'],['slot','회차'],['referrer','소개'],['adConsent','소식 수신 동의'],['source','경로'],['memo','궁금한 점'],['status','상태'],['adminMemo','관리 메모']];
+  const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+  const csv='﻿'+[cols.map(c=>q(c[1])).join(','),...APPS.map(a=>cols.map(c=>q(c[0]==='createdAt'?new Date(a.createdAt).toLocaleString('ko-KR'):a[c[0]])).join(','))].join('\n');
+  const u=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));const l=document.createElement('a');l.href=u;l.download=`중등관_상담신청_${new Date().toISOString().slice(0,10)}.csv`;l.click();
+};
+</script>
+</body>
+</html>

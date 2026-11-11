@@ -1,0 +1,17 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+  command = 'sed -i "s#__SITE_URL__#${URL}#g" public/index.html public/leaflet.html public/test.html'
+
+[functions]
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/leaflet"
+  to = "/leaflet.html"
+  status = 200
+
+[[redirects]]
+  from = "/test"
+  to = "/test.html"
+  status = 200

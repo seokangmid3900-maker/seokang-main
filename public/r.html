@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>반배치고사 결과 분석 리포트 | 서강수학원 중등관</title>
+<meta property="og:title" content="반배치고사 결과 분석 리포트 · 서강수학원 중등관">
+<meta property="og:description" content="단원별 정답률과 시작 시즌 학습 방향을 확인하세요.">
+<link rel="icon" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0B2A6F;--gold:#F28C28;--goldt:#B4560A;--ink:#1E2540;--sub:#555B6E;--line:#E2E4EB;--soft:#F2F3F7;--red:#C2364F;--green:#2E7D5B}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Gowun Dodum',sans-serif;background:var(--navy);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+.j{font-family:'Jua',sans-serif;font-weight:400}
+.wrap{max-width:620px;margin:0 auto;padding:16px 12px 30px}
+.card{background:#fff;clip-path:polygon(18px 0,calc(100% - 18px) 0,100% 18px,100% calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,0 calc(100% - 18px),0 18px);padding:26px 22px;margin-bottom:14px}
+.head{background:var(--navy);color:#fff;text-align:center;padding:30px 20px 24px;position:relative}
+.head svg{position:absolute;inset:0;width:100%;height:100%}
+.eng{color:var(--gold);font-size:12px;letter-spacing:3px;font-weight:700}
+.head h1{font-size:26px;margin-top:8px}
+.who{margin-top:10px;color:#C8D4EE;font-size:15px}
+.who b{color:#fff;font-size:20px;font-family:'Jua',sans-serif;font-weight:400}
+h2{text-align:center;font-size:22px;color:var(--navy)}
+.rule{height:1px;background:var(--gold);margin:9px 26px 16px}
+.score{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap}
+.ring{width:150px;height:150px;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .c b{font-family:'Jua',sans-serif;font-size:40px;color:var(--navy);line-height:1}
+.ring .c small{color:var(--sub);font-size:13px}
+.facts div{display:flex;justify-content:space-between;gap:20px;font-size:15px;padding:5px 0;border-bottom:1px solid var(--line)}
+.facts span{color:var(--sub)}.facts b{color:var(--navy)}
+.ub{margin:12px 0}
+.ub .t{display:flex;justify-content:space-between;font-size:15px}
+.ub .t b{font-family:'Jua',sans-serif;font-weight:400}
+.ub i{display:block;height:14px;background:var(--soft);border-radius:7px;overflow:hidden;margin-top:4px}
+.ub i em{display:block;height:100%;border-radius:7px;width:0;transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{border-radius:999px;padding:3px 12px;font-size:14px}
+.chip.s{background:#E6F2EC;color:var(--green)}.chip.w{background:#FBE9EC;color:var(--red)}
+.box{background:var(--soft);border-radius:12px;padding:14px 16px;margin-top:10px}
+.box h3{font-family:'Jua',sans-serif;font-weight:400;color:var(--navy);font-size:17px;margin-bottom:4px}
+.course{text-align:center;border:1.5px solid var(--gold);border-radius:14px;padding:14px;margin-top:12px}
+.course b{display:block;font-family:'Jua',sans-serif;font-weight:400;font-size:22px;color:var(--navy)}
+.tips li{margin:6px 0 6px 18px;font-size:14.5px}
+.cmt{white-space:pre-wrap;font-size:15px}
+.cta{display:flex;gap:8px;margin-top:14px}
+.cta a,.cta button{flex:1;min-height:50px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-family:'Jua',sans-serif;font-size:17px;text-decoration:none;border:0;cursor:pointer}
+.cta .a{background:var(--navy);color:#fff}.cta .b{background:#fff;border:1.5px solid var(--navy);color:var(--navy)}
+.note{font-size:12.5px;color:var(--sub);text-align:center;margin-top:10px}
+footer{text-align:center;color:#C8D4EE;font-size:13px}
+footer b{color:var(--gold);font-family:'Jua',sans-serif;font-weight:400;font-size:17px;display:block}
+.msg{text-align:center;color:#fff;padding:80px 20px;font-size:17px}
+@media print{body{background:#fff}.card{clip-path:none;border:1px solid var(--line)}.head{background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.cta,footer{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><div class="msg j">리포트를 불러오는 중…</div></div>
+<script>
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const TIP={
+ '약수와 배수':'약수 · 배수의 뜻과 최대공약수 · 최소공배수 구하는 과정을 다시 정리하면 중1 소인수분해가 훨씬 쉬워집니다.',
+ '분수·소수의 계산':'분수 · 소수의 사칙계산을 정확하게 하는 연습이 필요합니다. 중1 정수와 유리수 계산의 바탕이 됩니다.',
+ '비와 비율':'비율 · 백분율을 식으로 바꾸는 연습을 하면 중1 일차방정식 활용 문제에 바로 도움이 됩니다.',
+ '평면·입체도형':'도형의 넓이 · 부피 공식을 그림과 함께 다시 익히면 중1-2 도형 단원 준비가 됩니다.',
+ '소인수분해 (중1)':'소수와 합성수, 거듭제곱 표현부터 차근차근 잡으면 중1 첫 단원을 자신 있게 시작할 수 있습니다.',
+ '정수와 유리수 (중1)':'음수의 개념과 부호 계산 규칙을 확실히 익혀 두면 중1 계산 실수가 크게 줄어듭니다.'};
+(async()=>{
+  const t=new URLSearchParams(location.search).get('t');const app=document.getElementById('app');
+  try{const r=await fetch('/api/report?t='+encodeURIComponent(t||''));const j=await r.json();if(!j.ok)throw new Error(j.message||'리포트를 찾을 수 없습니다.');
+    const R=j.result,C=2*Math.PI*62,col=p=>p<60?'var(--red)':p>=85?'var(--green)':'var(--navy)';
+    app.innerHTML=`
+    <section class="card head"><svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="6,2 94,2 98,6 98,94 94,98 6,98 2,94 2,6" fill="none" stroke="#F28C28" stroke-width=".3" vector-effect="non-scaling-stroke"></polygon></svg>
+      <div class="eng" style="position:relative">SEOKANG MATH · 중등관</div><h1 class="j" style="position:relative">${esc(j.title)}<br>성적 분석 리포트</h1>
+      <div class="who" style="position:relative"><b>${esc(j.student.name)}</b> 학생 · ${esc(j.student.school)}<br>${esc(j.date||'')}</div></section>
+    <section class="card"><h2 class="j">종합 결과</h2><div class="rule"></div>
+      <div class="score"><div class="ring" role="img" aria-label="정답률 ${R.rate}%"><svg width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="62" fill="none" stroke="#F2F3F7" stroke-width="14"></circle><circle id="arc" cx="75" cy="75" r="62" fill="none" stroke="#0B2A6F" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" style="transition:stroke-dashoffset 1.2s ease"></circle></svg><div class="c"><b>${R.rate}%</b><small>정답률</small></div></div>
+      <div class="facts" style="min-width:200px"><div><span>점수</span><b>${R.got} / ${R.total}점</b></div><div><span>맞은 문항</span><b>${R.count-R.wrongCount} / ${R.count}문항</b></div><div><span>강점 단원</span><b>${R.strong.length}개</b></div><div><span>보완 단원</span><b>${R.weak.length}개</b></div></div></div>
+      <div class="course"><small style="color:var(--sub)">추천 수업 방식</small><b>${esc(j.course)}</b><small style="color:var(--sub)">수준에 맞게 시작해 같은 도착점 ‘혼풀’까지 갑니다</small></div></section>
+    <section class="card"><h2 class="j">단원별 정답률</h2><div class="rule"></div>
+      ${R.units.map(u=>`<div class="ub"><div class="t"><span>${esc(u.unit)}</span><b style="color:${col(u.rate)}">${u.rate}%</b></div><i><em data-w="${u.rate}" style="background:${col(u.rate)}"></em></i></div>`).join('')}
+      ${R.strong.length?`<div class="box"><h3>강점 단원</h3><div class="chips">${R.strong.map(u=>`<span class="chip s">${esc(u)}</span>`).join('')}</div></div>`:''}
+      ${R.weak.length?`<div class="box"><h3>보완 단원</h3><div class="chips">${R.weak.map(u=>`<span class="chip w">${esc(u)}</span>`).join('')}</div></div>`:''}</section>
+    <section class="card"><h2 class="j">시작 시즌 학습 방향</h2><div class="rule"></div>
+      <ul class="tips">${(R.weak.length?R.weak:R.units.slice().sort((a,b)=>a.rate-b.rate).slice(0,2).map(u=>u.unit)).map(u=>`<li><b>${esc(u)}</b> — ${esc(TIP[u]||'이 단원의 개념을 다시 정리하고 기본 유형을 반복하면 좋습니다.')}</li>`).join('')}
+      <li><b>시즌 1</b> — 1개월 개념 진입서와 현행 실전으로 시작해, 같은 도착점 ‘혼풀’까지 단계적으로 올라갑니다.</li></ul>
+      ${j.comment?`<div class="box"><h3>담당 선생님 의견</h3><div class="cmt">${esc(j.comment)}</div></div>`:''}
+      <div class="cta"><a class="a" href="tel:024063900">결과 상담 전화</a><button class="b" onclick="print()">저장 · 인쇄</button></div>
+      <p class="note">이 리포트는 ${esc(j.student.name)} 학생 학부모님께만 보내드린 개인 링크입니다. 다른 분께 공유하지 마세요.</p></section>
+    <footer><b>서강수학원 중등관</b>서울 송파구 거마로 51 (본관) · 02.406.3900</footer>`;
+    requestAnimationFrame(()=>setTimeout(()=>{document.getElementById('arc').style.strokeDashoffset=C*(1-R.rate/100);document.querySelectorAll('.ub em').forEach(e=>e.style.width=e.dataset.w+'%');},80));
+  }catch(e){app.innerHTML=`<div class="msg j">${esc(e.message)}<br><span style="font-family:'Gowun Dodum';font-size:14px">문의 02.406.3900</span></div>`;}
+})();
+</script>
+</body>
+</html>
