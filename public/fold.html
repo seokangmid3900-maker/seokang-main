@@ -21,28 +21,33 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;background:#F6F1E4;font-family:'Gowun Dodum',sans-serif;color:#3E2C08}
-header{text-align:center;padding:22px 16px 6px}
-header h1{margin:0;font-family:'Jua',sans-serif;font-weight:400;font-size:clamp(20px,3.4vw,30px)}
+html,body{margin:0;background:#F6F1E4;font-family:'Gowun Dodum',sans-serif;color:#3E2C08;-webkit-text-size-adjust:100%}
+header{text-align:center;padding:20px 16px 4px}
+header h1{margin:0;font-family:'Jua',sans-serif;font-weight:400;font-size:26px;color:#3E2C08}
 header p{margin:6px 0 0;font-size:14px;color:#6B5A3A}
-.step{display:inline-flex;align-items:center;gap:8px;margin-top:12px;background:#fff;border-radius:999px;padding:7px 16px;font-weight:700;font-size:14px;box-shadow:0 2px 8px rgba(62,44,8,.08)}
-.step b{background:#8A6410;color:#fff;border-radius:999px;min-width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
-.stage{position:relative;width:100%;display:flex;justify-content:center;perspective:2600px;padding:18px 0 10px}
-.fit{position:relative}
-.sheet{position:absolute;left:0;top:0;width:1123px;height:794px;transform-style:preserve-3d;transition:transform 1.3s cubic-bezier(.6,.05,.3,1)}
-.panel{position:absolute;top:0;height:794px;transform-style:preserve-3d;transition:transform 1.3s cubic-bezier(.6,.05,.3,1)}
-.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;background:#FFFAEE;box-shadow:0 1px 0 rgba(0,0,0,.04)}
-.back{transform:rotateY(180deg)}
-.pL{left:0;width:561px;transform-origin:100% 50%}
-.pR{left:561px;width:562px}
-.sheet.fold .pL{transform:translateZ(1px) rotateY(180deg)}
-.shadow{position:absolute;left:5%;right:5%;bottom:-26px;height:30px;border-radius:50%;background:radial-gradient(rgba(62,44,8,.2),transparent 70%);transition:all 1.3s}
-.controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:6px 16px 26px}
-.controls button,.controls .cta{font:inherit;font-weight:700;font-size:14px;border:0;border-radius:999px;padding:10px 18px;min-height:44px;cursor:pointer;background:#fff;color:#3E2C08;box-shadow:0 2px 8px rgba(62,44,8,.1);text-decoration:none;display:inline-flex;align-items:center}
+.step{display:inline-block;margin-top:12px;background:#fff;border-radius:999px;padding:7px 16px;font-weight:700;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.step b{display:inline-block;background:#8A6410;color:#fff;border-radius:999px;min-width:24px;height:24px;line-height:24px;text-align:center;font-size:13px;margin-right:8px}
+.stage{position:relative;width:100%;padding:16px 0 10px;-webkit-perspective:2600px;perspective:2600px}
+.fit{position:relative;margin:0 auto;width:96vw;height:68vw;max-width:1123px;max-height:794px}
+.sheet{position:absolute;left:0;top:0;width:1123px;height:794px;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-transform-origin:0 0;transform-origin:0 0;transition:transform 1.3s cubic-bezier(.6,.05,.3,1)}
+.panel{position:absolute;top:0;height:794px;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;transition:transform 1.3s cubic-bezier(.6,.05,.3,1)}
+.face{position:absolute;top:0;left:0;right:0;bottom:0;-webkit-backface-visibility:hidden;backface-visibility:hidden;overflow:hidden;background:#FFFAEE}
+.back{-webkit-transform:rotateY(180deg);transform:rotateY(180deg)}
+.pL{-webkit-transform-origin:100% 50%;transform-origin:100% 50%}
+.sheet.fold .pL{-webkit-transform:translateZ(1px) rotateY(180deg);transform:translateZ(1px) rotateY(180deg)}
+.flatwrap{display:none;position:absolute;left:0;top:0;width:1123px;height:794px;-webkit-transform-origin:0 0;transform-origin:0 0}
+.flat .sheet{display:none}
+.flat .flatwrap{display:block}
+.fview{position:absolute;left:0;top:0;width:1123px;height:794px;display:none;-webkit-transform-origin:50% 50%;transform-origin:50% 50%;transition:transform .38s ease,opacity .38s ease}
+.fview.on{display:-webkit-box;display:flex;-webkit-box-pack:center;justify-content:center}
+.fview.squish{-webkit-transform:scaleX(.03);transform:scaleX(.03);opacity:.5}
+.fview>div{-webkit-flex-shrink:0;flex-shrink:0;height:794px;overflow:hidden;background:#FFFAEE}
+.controls{display:-webkit-box;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;justify-content:center;padding:6px 12px 24px}
+.controls button,.controls .cta{font:inherit;font-weight:700;font-size:14px;border:0;border-radius:999px;padding:10px 16px;min-height:44px;margin:4px;cursor:pointer;background:#fff;color:#3E2C08;box-shadow:0 2px 8px rgba(0,0,0,.1);text-decoration:none;display:inline-block;line-height:24px;-webkit-appearance:none}
 .controls button.play{background:#3E2C08;color:#fff}
 .controls .cta{background:#8A6410;color:#fff}
 .note{text-align:center;font-size:12.5px;color:#6B5A3A;padding:0 16px 28px}
-@media (prefers-reduced-motion: reduce){.sheet,.panel{transition:none}}
+@media (prefers-reduced-motion: reduce){.sheet,.panel,.fview{transition:none}}
 </style>
 </head>
 <body>
@@ -51,9 +56,9 @@ header p{margin:6px 0 0;font-size:14px;color:#6B5A3A}
 <p>A4 가로 한 장 · 앞뒤 인쇄 후 반으로 접는 방식</p>
 <div class="step" id="step"><b>1</b><span>접힌 상태 · 앞표지</span></div>
 </header>
-<div class="stage"><div class="fit" id="fit"><div class="shadow" id="shadow"></div>
+<div class="stage" id="stage"><div class="fit" id="fit">
 <div class="sheet fold" id="sheet">
-<div class="panel pL"><div class="face front"><div style="width: 561px; height: 794px; box-sizing: border-box; padding: 36px 34px 32px 40px; display: flex; flex-direction: column; gap: 10px; border-right: 1px dashed #EEDDB0">
+<div class="panel pL" style="left:0px;width:561px"><div class="face front"><div style="width: 561px; height: 794px; box-sizing: border-box; padding: 36px 34px 32px 40px; display: flex; flex-direction: column; gap: 10px; border-right: 1px dashed #EEDDB0">
 <div style="display: flex; align-items: baseline; gap: 10px"><h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 26px; color: #3E2C08">한눈에 보는 서강 중등관</h2></div><div style="height: 2px; background: linear-gradient(90deg, #D9A62E 0 48px, #EEDDB0 48px); margin: 8px 0 12px"></div>
 <div style="display: flex; gap: 8px; margin-top: -4px"><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 10px 6px; text-align: center"><div style="font-size: 12px; color: #6B5A3A; font-weight: 700">수업</div><div style="margin-top: 2px"><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 30px; color: #8A6410">135</span><span style="font-size: 13px; font-weight: 700"> 분</span></div></div><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 10px 6px; text-align: center"><div style="font-size: 12px; color: #6B5A3A; font-weight: 700">개오테</div><div style="margin-top: 2px"><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 30px; color: #8A6410">45</span><span style="font-size: 13px; font-weight: 700"> 분</span></div></div><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 10px 6px; text-align: center"><div style="font-size: 12px; color: #6B5A3A; font-weight: 700">3년 커리큘럼</div><div style="margin-top: 2px"><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 30px; color: #8A6410">7</span><span style="font-size: 13px; font-weight: 700"> 시즌</span></div></div><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 10px 6px; text-align: center"><div style="font-size: 12px; color: #6B5A3A; font-weight: 700">수업 방식</div><div style="margin-top: 2px"><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 30px; color: #8A6410">3</span><span style="font-size: 13px; font-weight: 700"> 가지</span></div></div></div>
 <div style="height: 4px"></div>
@@ -90,7 +95,7 @@ header p{margin:6px 0 0;font-size:14px;color:#6B5A3A}
 <div style="text-align: right; font-size: 13px">상담 문의<br><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 20px">02. 406. 3900</span></div>
 </div>
 </div></div></div>
-<div class="panel pR"><div class="face front"><div style="width: 562px; height: 794px; box-sizing: border-box; padding: 36px 40px 32px 34px; display: flex; flex-direction: column; gap: 10px">
+<div class="panel pR" style="left:561px;width:562px"><div class="face front"><div style="width: 562px; height: 794px; box-sizing: border-box; padding: 36px 40px 32px 34px; display: flex; flex-direction: column; gap: 10px">
 <div style="display: flex; align-items: baseline; gap: 10px"><h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 26px; color: #3E2C08">시즌제 진도</h2><span style="font-size: 13px; color: #6B5A3A">한 시즌 4개월 · 개념에서 유형 · 심화까지</span></div><div style="height: 2px; background: linear-gradient(90deg, #D9A62E 0 48px, #EEDDB0 48px); margin: 8px 0 12px"></div>
 <div style="display: flex; align-items: stretch; margin-top: -4px"><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 10px; color: #3E2C08"><div style="font-size: 12px; font-weight: 700; color: #D9A62E">1개월</div><div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 17px; margin-top: 2px">개념 진입서</div><div style="font-size: 11.5px; line-height: 1.45; margin-top: 3px; color: #6B5A3A">서강 제작 개념(유형·심화) 진입서 + 현행 실전</div></div><div style="width: 12px; display: flex; align-items: center; justify-content: center; color: #D9A62E; font-weight: 700">›</div><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 10px; color: #3E2C08"><div style="font-size: 12px; font-weight: 700; color: #D9A62E">3개월</div><div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 17px; margin-top: 2px">유형 · 심화</div><div style="font-size: 11.5px; line-height: 1.45; margin-top: 3px; color: #6B5A3A">수준별 교재로 유형 · 심화 + 현행 실전</div></div><div style="width: 12px; display: flex; align-items: center; justify-content: center; color: #D9A62E; font-weight: 700">›</div><div style="flex: 1; background: #8A6410; border: 1px solid #8A6410; border-radius: 14px; padding: 10px; color: #FFFFFF"><div style="font-size: 12px; font-weight: 700; color: #F2CB6B">승급</div><div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 17px; margin-top: 2px">레벨업 · 빌드업 특강</div><div style="font-size: 11.5px; line-height: 1.45; margin-top: 3px; color: #FFF3D6">시즌마다 특강으로 다음 레벨에 도전</div></div></div>
 <div style="display: flex; gap: 8px; align-items: center; justify-content: center; font-size: 13px"><span style="display: inline-block; background: #FBEFCF; color: #8A6410; border-radius: 999px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 13px; padding: 3px 11px">중1 3시즌</span><span style="display: inline-block; background: #FBEFCF; color: #8A6410; border-radius: 999px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 13px; padding: 3px 11px">중2 2시즌</span><span style="display: inline-block; background: #FBEFCF; color: #8A6410; border-radius: 999px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 13px; padding: 3px 11px">중3 2시즌</span><span style="color: #6B5A3A">+ 학년별 시험 시즌</span></div>
@@ -123,37 +128,129 @@ header p{margin:6px 0 0;font-size:14px;color:#6B5A3A}
 <div style="display: flex; gap: 8px; align-items: flex-start"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A6410" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg><div style="font-size: 14px; color: #3E2C08; line-height: 1.55">서울 송파구 거마로 51 · 서강수학원 본관</div></div>
 </div>
 </div></div></div>
-</div></div></div>
-<div class="controls">
-<button class="play" id="play" type="button">⏸ 일시정지</button>
-<button type="button" data-go="0">① 접힌 모습</button>
-<button type="button" data-go="1">② 안쪽면 펼쳐 보기</button>
-<button type="button" data-go="2">③ 바깥면 펼쳐 보기</button>
-<a class="cta" href="/?from=fold">결과 상담 신청</a>
-<a class="cta" href="/test?from=fold">추가 반배치고사 신청</a>
 </div>
-<p class="note">자동으로 펼치고 접기를 반복합니다. 버튼을 누르면 그 장면에서 멈춰 내용을 자세히 볼 수 있어요.</p>
+<div class="flatwrap" id="flatwrap">
+<div class="fview on" id="v-cover"><div style="width:562px"><div style="width: 562px; height: 794px; position: relative; background: #E3B23C; box-sizing: border-box; padding: 70px 64px 64px; display: flex; flex-direction: column; color: #3E2C08">
+<svg aria-hidden="true" width="562" height="794" viewBox="0 0 562 794" style="position: absolute; left: 0; top: 0"><circle cx="500" cy="120" r="210" fill="#F2CB6B"></circle><rect x="28" y="28" width="506" height="738" rx="22" fill="none" stroke="#3E2C08" stroke-opacity=".35" stroke-width="1.2"></rect></svg>
+<div style="position: relative; font-size: 12px; font-weight: 700; letter-spacing: 4px; color: #3E2C08">SEOKANG MATH</div>
+<div style="position: relative; margin-top: 160px">
+<div style="font-size: 15px; font-weight: 700; letter-spacing: 1px">2027 예비중1 · 중등 수학 안내</div>
+<div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 64px; line-height: 1.15; margin-top: 14px; letter-spacing: -1px">서강수학원</div>
+<div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 40px; color: #7A5208; margin-top: 4px">중등관</div>
+<div style="width: 48px; height: 2px; background: #3E2C08; margin-top: 26px"></div>
+<div style="font-size: 22px; font-weight: 700; margin-top: 20px">같은 도착점, 혼풀</div>
+<div style="font-size: 14.5px; margin-top: 10px; line-height: 1.75">선풀 · 힌풀 · 함풀, 수준에 맞게 시작해<br>혼자 풀 수 있는 힘까지 키웁니다.</div>
+</div>
+<div style="position: relative; margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end">
+<div><div style="font-size: 13px; letter-spacing: 2px; font-weight: 700">서울 송파구 거마로 51</div><div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 24px; margin-top: 6px">서강수학원 본관</div></div>
+<div style="text-align: right; font-size: 13px">상담 문의<br><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 20px">02. 406. 3900</span></div>
+</div>
+</div></div></div>
+<div class="fview" id="v-inside"><div style="width:561px"><div style="width: 561px; height: 794px; box-sizing: border-box; padding: 36px 34px 32px 40px; display: flex; flex-direction: column; gap: 10px; border-right: 1px dashed #EEDDB0">
+<div style="display: flex; align-items: baseline; gap: 10px"><h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 26px; color: #3E2C08">한눈에 보는 서강 중등관</h2></div><div style="height: 2px; background: linear-gradient(90deg, #D9A62E 0 48px, #EEDDB0 48px); margin: 8px 0 12px"></div>
+<div style="display: flex; gap: 8px; margin-top: -4px"><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 10px 6px; text-align: center"><div style="font-size: 12px; color: #6B5A3A; font-weight: 700">수업</div><div style="margin-top: 2px"><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 30px; color: #8A6410">135</span><span style="font-size: 13px; font-weight: 700"> 분</span></div></div><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 10px 6px; text-align: center"><div style="font-size: 12px; color: #6B5A3A; font-weight: 700">개오테</div><div style="margin-top: 2px"><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 30px; color: #8A6410">45</span><span style="font-size: 13px; font-weight: 700"> 분</span></div></div><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 10px 6px; text-align: center"><div style="font-size: 12px; color: #6B5A3A; font-weight: 700">3년 커리큘럼</div><div style="margin-top: 2px"><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 30px; color: #8A6410">7</span><span style="font-size: 13px; font-weight: 700"> 시즌</span></div></div><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 10px 6px; text-align: center"><div style="font-size: 12px; color: #6B5A3A; font-weight: 700">수업 방식</div><div style="margin-top: 2px"><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 30px; color: #8A6410">3</span><span style="font-size: 13px; font-weight: 700"> 가지</span></div></div></div>
+<div style="height: 4px"></div>
+<div style="display: flex; align-items: baseline; gap: 10px"><h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 26px; color: #3E2C08">세 가지 시작, 하나의 도착점</h2><span style="font-size: 13px; color: #6B5A3A">시작 반과 수업 방식은 반배치고사로 정합니다</span></div><div style="height: 2px; background: linear-gradient(90deg, #D9A62E 0 48px, #EEDDB0 48px); margin: 8px 0 12px"></div>
+<div style="display: flex; gap: 10px; align-items: stretch; margin-top: -4px">
+<div style="flex: 1; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 12px; padding: 7px 12px"><span style="width: 26px; height: 26px; border-radius: 8px; background: #FBEFCF; color: #8A6410; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 14px; display: flex; align-items: center; justify-content: center">상</span><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 18px; width: 48px">선풀</span><span style="flex: 1; font-size: 12.5px; color: #6B5A3A">먼저 풀고 점검받기</span><span style="font-size: 12px; font-weight: 700; color: #8A6410">HC · AA</span></div><div style="display: flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 12px; padding: 7px 12px"><span style="width: 26px; height: 26px; border-radius: 8px; background: #FBEFCF; color: #8A6410; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 14px; display: flex; align-items: center; justify-content: center">중</span><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 18px; width: 48px">힌풀</span><span style="flex: 1; font-size: 12.5px; color: #6B5A3A">힌트로 시작하기</span><span style="font-size: 12px; font-weight: 700; color: #8A6410">AB · BA</span></div><div style="display: flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 12px; padding: 7px 12px"><span style="width: 26px; height: 26px; border-radius: 8px; background: #FBEFCF; color: #8A6410; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 14px; display: flex; align-items: center; justify-content: center">하</span><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 18px; width: 48px">함풀</span><span style="flex: 1; font-size: 12.5px; color: #6B5A3A">단계별로 함께 시작</span><span style="font-size: 12px; font-weight: 700; color: #8A6410">BB · CC</span></div></div>
+<div style="width: 18px; display: flex; align-items: center; justify-content: center; color: #D9A62E; font-size: 20px; font-weight: 700">›</div>
+<div style="width: 104px; background: #8A6410; border-radius: 14px; color: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8px"><div style="font-size: 11px; letter-spacing: 1px; color: #F2CB6B; font-weight: 700">도착</div><div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 26px">혼풀</div><div style="font-size: 11.5px; line-height: 1.4; margin-top: 2px">혼자 풀기<br>모든 반의 목표</div></div>
+</div>
+<div style="height: 4px"></div>
+<div style="display: flex; align-items: baseline; gap: 10px"><h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 26px; color: #3E2C08">하루 수업은 이렇게</h2><span style="font-size: 13px; color: #6B5A3A">한 번 수업 180분 · 반에 맞춘 두 가지 구조</span></div><div style="height: 2px; background: linear-gradient(90deg, #D9A62E 0 48px, #EEDDB0 48px); margin: 8px 0 12px"></div>
+<div style="display: flex; flex-direction: column; gap: 8px; margin-top: -4px">
+<div style="display: flex; align-items: center; gap: 10px"><span style="width: 74px; font-size: 13px; font-weight: 700">선풀 · 힌풀</span><div style="flex: 1; height: 30px; border-radius: 10px; overflow: hidden; display: flex"><div style="width: 16.67%; background: #F2CB6B; color: #3E2C08; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; white-space: nowrap">실전 30</div><div style="width: 58.33%; background: #8A6410; color: #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; white-space: nowrap">선행 105</div><div style="width: 25.00%; background: #D9A62E; color: #3E2C08; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; white-space: nowrap">개오테 45</div></div></div>
+<div style="display: flex; align-items: center; gap: 10px"><span style="width: 74px; font-size: 13px; font-weight: 700">함풀</span><div style="flex: 1; height: 30px; border-radius: 10px; overflow: hidden; display: flex"><div style="width: 66.67%; background: #8A6410; color: #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; white-space: nowrap">수업 120</div><div style="width: 33.33%; background: #F2CB6B; color: #3E2C08; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; white-space: nowrap">과제 완성 60</div></div></div>
+</div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 6px; background: #FBEFCF; border-radius: 14px; padding: 12px 14px; font-size: 12.5px; line-height: 1.5">
+<div><b style="color: #8A6410">현행 실전 30분</b> · 선행만 하지 않고 지금 학교 진도를 실전으로 함께 잡습니다.</div>
+<div><b style="color: #8A6410">개오테 45분</b> · 개념 · 오답 · 테스트로 그날 배운 것을 학원에서 확인합니다.</div>
+<div><b style="color: #8A6410">함풀반 과제 완성 60분</b> · 2시간 수업 뒤 1시간 동안 당일 과제를 끝내고 귀가합니다.</div>
+</div>
+</div></div><div style="width:562px"><div style="width: 562px; height: 794px; box-sizing: border-box; padding: 36px 40px 32px 34px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; gap: 10px"><h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 26px; color: #3E2C08">시즌제 진도</h2><span style="font-size: 13px; color: #6B5A3A">한 시즌 4개월 · 개념에서 유형 · 심화까지</span></div><div style="height: 2px; background: linear-gradient(90deg, #D9A62E 0 48px, #EEDDB0 48px); margin: 8px 0 12px"></div>
+<div style="display: flex; align-items: stretch; margin-top: -4px"><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 10px; color: #3E2C08"><div style="font-size: 12px; font-weight: 700; color: #D9A62E">1개월</div><div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 17px; margin-top: 2px">개념 진입서</div><div style="font-size: 11.5px; line-height: 1.45; margin-top: 3px; color: #6B5A3A">서강 제작 개념(유형·심화) 진입서 + 현행 실전</div></div><div style="width: 12px; display: flex; align-items: center; justify-content: center; color: #D9A62E; font-weight: 700">›</div><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 10px; color: #3E2C08"><div style="font-size: 12px; font-weight: 700; color: #D9A62E">3개월</div><div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 17px; margin-top: 2px">유형 · 심화</div><div style="font-size: 11.5px; line-height: 1.45; margin-top: 3px; color: #6B5A3A">수준별 교재로 유형 · 심화 + 현행 실전</div></div><div style="width: 12px; display: flex; align-items: center; justify-content: center; color: #D9A62E; font-weight: 700">›</div><div style="flex: 1; background: #8A6410; border: 1px solid #8A6410; border-radius: 14px; padding: 10px; color: #FFFFFF"><div style="font-size: 12px; font-weight: 700; color: #F2CB6B">승급</div><div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 17px; margin-top: 2px">레벨업 · 빌드업 특강</div><div style="font-size: 11.5px; line-height: 1.45; margin-top: 3px; color: #FFF3D6">시즌마다 특강으로 다음 레벨에 도전</div></div></div>
+<div style="display: flex; gap: 8px; align-items: center; justify-content: center; font-size: 13px"><span style="display: inline-block; background: #FBEFCF; color: #8A6410; border-radius: 999px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 13px; padding: 3px 11px">중1 3시즌</span><span style="display: inline-block; background: #FBEFCF; color: #8A6410; border-radius: 999px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 13px; padding: 3px 11px">중2 2시즌</span><span style="display: inline-block; background: #FBEFCF; color: #8A6410; border-radius: 999px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 13px; padding: 3px 11px">중3 2시즌</span><span style="color: #6B5A3A">+ 학년별 시험 시즌</span></div>
+<div style="height: 4px"></div>
+<div style="display: flex; align-items: baseline; gap: 10px"><h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 26px; color: #3E2C08">3년 로드맵</h2><span style="font-size: 13px; color: #6B5A3A">시즌 1에서 시작해 시즌 7에 도착하는 반별 경로</span></div><div style="height: 2px; background: linear-gradient(90deg, #D9A62E 0 48px, #EEDDB0 48px); margin: 8px 0 12px"></div>
+<div style="border: 1px solid #EEDDB0; border-radius: 12px; overflow: hidden; margin-top: -4px"><div style="display: flex; background: #3E2C08; color: #FFFFFF; padding: 8px 12px; font-size: 12.5px; font-weight: 700"><span style="width: 60px">반</span><span style="width: 120px">시즌 1 시작</span><span style="flex: 1"></span><span style="width: 150px; text-align: right">시즌 7 도착</span></div><div style="display: flex; align-items: center; padding: 9px 12px; background: #FFFFFF; font-size: 13px"><span style="width: 60px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 15px; color: #8A6410">HCA</span><span style="width: 120px">공통수학1</span><span style="flex: 1; height: 2px; background: linear-gradient(90deg, #EEDDB0, #D9A62E); margin: 0 10px"></span><span style="width: 150px; text-align: right; font-weight: 700">대수 · 미적분1 완성</span></div><div style="display: flex; align-items: center; padding: 9px 12px; background: #FBEFCF; font-size: 13px"><span style="width: 60px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 15px; color: #8A6410">HCB</span><span style="width: 120px">중2-2</span><span style="flex: 1; height: 2px; background: linear-gradient(90deg, #EEDDB0, #D9A62E); margin: 0 10px"></span><span style="width: 150px; text-align: right; font-weight: 700">대수1</span></div><div style="display: flex; align-items: center; padding: 9px 12px; background: #FFFFFF; font-size: 13px"><span style="width: 60px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 15px; color: #8A6410">AA</span><span style="width: 120px">중2-1</span><span style="flex: 1; height: 2px; background: linear-gradient(90deg, #EEDDB0, #D9A62E); margin: 0 10px"></span><span style="width: 150px; text-align: right; font-weight: 700">공통수학2</span></div><div style="display: flex; align-items: center; padding: 9px 12px; background: #FBEFCF; font-size: 13px"><span style="width: 60px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 15px; color: #8A6410">BA</span><span style="width: 120px">중1-2</span><span style="flex: 1; height: 2px; background: linear-gradient(90deg, #EEDDB0, #D9A62E); margin: 0 10px"></span><span style="width: 150px; text-align: right; font-weight: 700">공통수학1 · 2</span></div><div style="display: flex; align-items: center; padding: 9px 12px; background: #FFFFFF; font-size: 13px"><span style="width: 60px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 15px; color: #8A6410">BB</span><span style="width: 120px">중1-1</span><span style="flex: 1; height: 2px; background: linear-gradient(90deg, #EEDDB0, #D9A62E); margin: 0 10px"></span><span style="width: 150px; text-align: right; font-weight: 700">공통수학1</span></div></div>
+<div style="font-size: 12px; color: #6B5A3A; text-align: center">반별 세부 경로와 시즌별 진도는 결과 상담 때 자세히 안내드립니다.</div>
+<div style="margin-top: auto; background: #E3B23C; border-radius: 18px; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; color: #3E2C08">
+<div><div style="font-size: 13px; font-weight: 700">3년, 7시즌 동안</div><div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 24px; margin-top: 2px">같은 도착점 ‘혼풀’까지</div></div>
+<div style="text-align: right; font-size: 12.5px">상담 문의<br><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 20px">02. 406. 3900</span></div>
+</div>
+</div></div></div>
+<div class="fview" id="v-outside"><div style="width:562px"><div style="width: 561px; height: 794px; box-sizing: border-box; padding: 44px 40px 40px; display: flex; flex-direction: column; gap: 16px; border-right: 1px dashed #EEDDB0">
+<div style="display: flex; align-items: baseline; gap: 10px"><h2 style="margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 26px; color: #3E2C08">상담 안내</h2></div><div style="height: 2px; background: linear-gradient(90deg, #D9A62E 0 48px, #EEDDB0 48px); margin: 8px 0 12px"></div>
+<div style="font-size: 15px; color: #3E2C08; margin-top: -10px">우리 아이의 시작은 <b style="color: #8A6410">반배치고사</b>에서 정합니다.</div>
+<div style="display: flex; align-items: stretch"><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 12px 10px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 30px; height: 30px; border-radius: 50%; background: #8A6410; color: #FFFFFF; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 14px; display: flex; align-items: center; justify-content: center">01</span>
+<div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 16px; color: #3E2C08">반배치고사</div><div style="font-size: 12px; line-height: 1.5; color: #6B5A3A">이미 보셨다면 결과로, 아직이라면 추가 반배치고사로 시작</div></div><div style="width: 10px; display: flex; align-items: center; color: #D9A62E; font-weight: 700">›</div><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 12px 10px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 30px; height: 30px; border-radius: 50%; background: #8A6410; color: #FFFFFF; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 14px; display: flex; align-items: center; justify-content: center">02</span>
+<div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 16px; color: #3E2C08">결과 상담</div><div style="font-size: 12px; line-height: 1.5; color: #6B5A3A">단원별 분석과 함께 시작 반 · 수업 방식 결정</div></div><div style="width: 10px; display: flex; align-items: center; color: #D9A62E; font-weight: 700">›</div><div style="flex: 1; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 14px; padding: 12px 10px; display: flex; flex-direction: column; gap: 6px">
+<span style="width: 30px; height: 30px; border-radius: 50%; background: #8A6410; color: #FFFFFF; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 14px; display: flex; align-items: center; justify-content: center">03</span>
+<div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 16px; color: #3E2C08">등록 · 시즌 1</div><div style="font-size: 12px; line-height: 1.5; color: #6B5A3A">반 · 요일 · 시간을 안내받고 첫 시즌 시작</div></div></div>
+<div style="background: #FBEFCF; border-radius: 18px; padding: 16px 18px; display: flex; gap: 18px; align-items: center">
+<div style="background: #FFFFFF; border-radius: 12px; padding: 8px; flex-shrink: 0"><svg width="118" height="118" viewBox="-1 -1 35 35" shape-rendering="crispEdges" role="img" aria-label="본관 상담 신청 사이트 QR 코드"><path d="M0 0h7v1h-7zM12 0h2v1h-2zM16 0h6v1h-6zM23 0h1v1h-1zM26 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM13 1h3v1h-3zM17 1h1v1h-1zM21 1h2v1h-2zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM8 2h1v1h-1zM12 2h2v1h-2zM16 2h7v1h-7zM24 2h1v1h-1zM26 2h1v1h-1zM28 2h3v1h-3zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM8 3h2v1h-2zM14 3h1v1h-1zM16 3h1v1h-1zM19 3h2v1h-2zM22 3h1v1h-1zM24 3h1v1h-1zM26 3h1v1h-1zM28 3h3v1h-3zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h1v1h-1zM10 4h1v1h-1zM15 4h1v1h-1zM17 4h2v1h-2zM22 4h2v1h-2zM26 4h1v1h-1zM28 4h3v1h-3zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM10 5h3v1h-3zM15 5h3v1h-3zM20 5h1v1h-1zM22 5h1v1h-1zM24 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h7v1h-7zM8 7h1v1h-1zM11 7h2v1h-2zM14 7h2v1h-2zM18 7h1v1h-1zM21 7h1v1h-1zM0 8h1v1h-1zM2 8h5v1h-5zM10 8h1v1h-1zM12 8h4v1h-4zM17 8h1v1h-1zM22 8h3v1h-3zM26 8h5v1h-5zM2 9h4v1h-4zM7 9h1v1h-1zM9 9h3v1h-3zM14 9h1v1h-1zM18 9h2v1h-2zM21 9h1v1h-1zM23 9h1v1h-1zM26 9h2v1h-2zM29 9h4v1h-4zM0 10h2v1h-2zM3 10h7v1h-7zM11 10h1v1h-1zM15 10h2v1h-2zM18 10h1v1h-1zM21 10h2v1h-2zM25 10h2v1h-2zM28 10h1v1h-1zM30 10h1v1h-1zM3 11h1v1h-1zM7 11h3v1h-3zM14 11h2v1h-2zM19 11h3v1h-3zM23 11h3v1h-3zM28 11h5v1h-5zM0 12h2v1h-2zM6 12h1v1h-1zM8 12h2v1h-2zM12 12h1v1h-1zM18 12h2v1h-2zM21 12h1v1h-1zM23 12h3v1h-3zM28 12h2v1h-2zM31 12h2v1h-2zM4 13h2v1h-2zM10 13h3v1h-3zM14 13h3v1h-3zM20 13h2v1h-2zM23 13h1v1h-1zM26 13h2v1h-2zM29 13h1v1h-1zM31 13h2v1h-2zM0 14h1v1h-1zM3 14h1v1h-1zM6 14h1v1h-1zM8 14h2v1h-2zM14 14h1v1h-1zM19 14h1v1h-1zM22 14h1v1h-1zM24 14h3v1h-3zM29 14h1v1h-1zM31 14h1v1h-1zM0 15h2v1h-2zM4 15h1v1h-1zM7 15h2v1h-2zM10 15h3v1h-3zM14 15h1v1h-1zM16 15h1v1h-1zM19 15h5v1h-5zM25 15h2v1h-2zM28 15h3v1h-3zM0 16h1v1h-1zM2 16h2v1h-2zM5 16h3v1h-3zM9 16h2v1h-2zM13 16h1v1h-1zM16 16h2v1h-2zM19 16h1v1h-1zM24 16h2v1h-2zM27 16h2v1h-2zM32 16h1v1h-1zM8 17h1v1h-1zM11 17h1v1h-1zM16 17h2v1h-2zM19 17h2v1h-2zM23 17h1v1h-1zM25 17h3v1h-3zM29 17h2v1h-2zM32 17h1v1h-1zM2 18h3v1h-3zM6 18h3v1h-3zM10 18h1v1h-1zM13 18h3v1h-3zM17 18h1v1h-1zM20 18h1v1h-1zM22 18h1v1h-1zM25 18h4v1h-4zM30 18h1v1h-1zM1 19h1v1h-1zM7 19h3v1h-3zM16 19h3v1h-3zM23 19h1v1h-1zM27 19h4v1h-4zM0 20h2v1h-2zM6 20h1v1h-1zM9 20h3v1h-3zM13 20h1v1h-1zM15 20h2v1h-2zM19 20h7v1h-7zM27 20h3v1h-3zM0 21h2v1h-2zM8 21h1v1h-1zM12 21h1v1h-1zM14 21h2v1h-2zM18 21h1v1h-1zM23 21h1v1h-1zM26 21h1v1h-1zM29 21h2v1h-2zM32 21h1v1h-1zM0 22h1v1h-1zM4 22h6v1h-6zM12 22h2v1h-2zM15 22h2v1h-2zM20 22h3v1h-3zM28 22h1v1h-1zM31 22h1v1h-1zM0 23h1v1h-1zM2 23h1v1h-1zM8 23h3v1h-3zM13 23h3v1h-3zM18 23h1v1h-1zM21 23h2v1h-2zM24 23h3v1h-3zM28 23h3v1h-3zM32 23h1v1h-1zM0 24h10v1h-10zM12 24h4v1h-4zM17 24h1v1h-1zM22 24h1v1h-1zM24 24h6v1h-6zM31 24h2v1h-2zM8 25h2v1h-2zM11 25h1v1h-1zM13 25h2v1h-2zM16 25h1v1h-1zM18 25h4v1h-4zM24 25h1v1h-1zM28 25h1v1h-1zM30 25h3v1h-3zM0 26h7v1h-7zM9 26h2v1h-2zM13 26h1v1h-1zM15 26h2v1h-2zM18 26h1v1h-1zM20 26h2v1h-2zM23 26h2v1h-2zM26 26h1v1h-1zM28 26h1v1h-1zM30 26h2v1h-2zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h1v1h-1zM15 27h1v1h-1zM21 27h4v1h-4zM28 27h3v1h-3zM0 28h1v1h-1zM2 28h3v1h-3zM6 28h1v1h-1zM8 28h2v1h-2zM11 28h3v1h-3zM18 28h1v1h-1zM21 28h1v1h-1zM24 28h6v1h-6zM0 29h1v1h-1zM2 29h3v1h-3zM6 29h1v1h-1zM8 29h3v1h-3zM13 29h1v1h-1zM15 29h3v1h-3zM20 29h1v1h-1zM22 29h4v1h-4zM28 29h1v1h-1zM30 29h1v1h-1zM32 29h1v1h-1zM0 30h1v1h-1zM2 30h3v1h-3zM6 30h1v1h-1zM8 30h3v1h-3zM19 30h1v1h-1zM21 30h4v1h-4zM26 30h2v1h-2zM0 31h1v1h-1zM6 31h1v1h-1zM11 31h3v1h-3zM16 31h1v1h-1zM18 31h5v1h-5zM25 31h1v1h-1zM28 31h3v1h-3zM0 32h7v1h-7zM8 32h1v1h-1zM10 32h3v1h-3zM17 32h1v1h-1zM19 32h1v1h-1zM22 32h4v1h-4zM27 32h1v1h-1zM31 32h1v1h-1z" fill="#3E2C08"></path></svg></div>
+<div><div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 22px; color: #3E2C08">QR로 상담 · 반배치고사 신청</div><div style="font-size: 13.5px; color: #6B5A3A; line-height: 1.6; margin-top: 4px">휴대폰 카메라로 찍으면<br>결과 상담과 추가 반배치고사를 신청할 수 있어요.</div><div style="font-size: 12px; color: #8A6410; font-weight: 700; margin-top: 6px">seokang-main.netlify.app</div></div>
+</div>
+<div style="margin-top: auto; background: #FFFFFF; border: 1px solid #EEDDB0; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 14px"><span style="display: inline-block; background: #8A6410; color: #FFFFFF; border-radius: 999px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 13px; padding: 3px 11px">상담 문의</span><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 30px; color: #8A6410; letter-spacing: 0.5px">02. 406. 3900</span></div>
+<div style="display: flex; gap: 20px; font-size: 14px; color: #3E2C08"><span><b>평일</b> 월~금 14:00 ~ 19:00</span><span><b>토요일</b> 10:00 ~ 16:00</span></div>
+<div style="height: 1px; background: #EEDDB0"></div>
+<div style="display: flex; gap: 8px; align-items: flex-start"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A6410" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg><div style="font-size: 14px; color: #3E2C08; line-height: 1.55">서울 송파구 거마로 51 · 서강수학원 본관</div></div>
+</div>
+</div></div><div style="width:561px"><div style="width: 562px; height: 794px; position: relative; background: #E3B23C; box-sizing: border-box; padding: 70px 64px 64px; display: flex; flex-direction: column; color: #3E2C08">
+<svg aria-hidden="true" width="562" height="794" viewBox="0 0 562 794" style="position: absolute; left: 0; top: 0"><circle cx="500" cy="120" r="210" fill="#F2CB6B"></circle><rect x="28" y="28" width="506" height="738" rx="22" fill="none" stroke="#3E2C08" stroke-opacity=".35" stroke-width="1.2"></rect></svg>
+<div style="position: relative; font-size: 12px; font-weight: 700; letter-spacing: 4px; color: #3E2C08">SEOKANG MATH</div>
+<div style="position: relative; margin-top: 160px">
+<div style="font-size: 15px; font-weight: 700; letter-spacing: 1px">2027 예비중1 · 중등 수학 안내</div>
+<div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 64px; line-height: 1.15; margin-top: 14px; letter-spacing: -1px">서강수학원</div>
+<div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 40px; color: #7A5208; margin-top: 4px">중등관</div>
+<div style="width: 48px; height: 2px; background: #3E2C08; margin-top: 26px"></div>
+<div style="font-size: 22px; font-weight: 700; margin-top: 20px">같은 도착점, 혼풀</div>
+<div style="font-size: 14.5px; margin-top: 10px; line-height: 1.75">선풀 · 힌풀 · 함풀, 수준에 맞게 시작해<br>혼자 풀 수 있는 힘까지 키웁니다.</div>
+</div>
+<div style="position: relative; margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end">
+<div><div style="font-size: 13px; letter-spacing: 2px; font-weight: 700">서울 송파구 거마로 51</div><div style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 24px; margin-top: 6px">서강수학원 본관</div></div>
+<div style="text-align: right; font-size: 13px">상담 문의<br><span style="font-family: 'Jua', sans-serif; font-weight: 400; font-size: 20px">02. 406. 3900</span></div>
+</div>
+</div></div></div>
+</div>
+</div></div>
+<div class="controls">
+<button class="play" id="play" type="button">일시정지</button>
+<button type="button" data-go="cover">① 접힌 모습</button>
+<button type="button" data-go="inside">② 안쪽면 펼쳐 보기</button>
+<button type="button" data-go="outside">③ 바깥면 펼쳐 보기</button>
+<a class="cta" href="/?from=fold">결과 상담 신청</a><a class="cta" href="/test?from=fold">추가 반배치고사 신청</a>
+</div>
+<p class="note">자동으로 접고 펼치기를 반복합니다. 버튼을 누르면 그 장면에서 멈춰 내용을 자세히 볼 수 있어요.</p>
 <script>
 (function(){
-var sheet=document.getElementById('sheet'),fit=document.getElementById('fit'),step=document.getElementById('step'),playBtn=document.getElementById('play'),sh=document.getElementById('shadow');
-var scenes=[
- {fold:true,flip:false,label:'접힌 상태 · 앞표지',n:1,hold:2600},
- {fold:false,flip:false,label:'안쪽면 · 수업 방식 · 시즌제 · 3년 로드맵',n:2,hold:5600},
- {fold:false,flip:true,label:'바깥면 · 상담 안내 · 앞표지',n:3,hold:5000},
- {fold:false,flip:false,label:'다시 안쪽면으로',n:4,hold:1400}
-];
-var cur=0,timer=null,playing=true,S=1;
-function size(){S=Math.min(window.innerWidth*0.96/1123,Math.max(260,window.innerHeight-230)/794,1.1);fit.style.width=(1123*S)+'px';fit.style.height=(794*S)+'px';apply();}
-function apply(){var sc=scenes[cur];
- sheet.className='sheet'+(sc.fold?' fold':'');sheet.style.transformOrigin='0 0';
- sheet.style.transform=sc.flip?'translateX('+(1123*S)+'px) scale('+S+') rotateY(180deg)':'scale('+S+')';
- step.innerHTML='<b>'+sc.n+'</b><span>'+sc.label+'</span>';
- sh.style.left=sc.fold?'52%':'5%';sh.style.right=sc.fold?'2%':'5%';}
-function schedule(){clearTimeout(timer);if(playing)timer=setTimeout(function(){cur=(cur+1)%scenes.length;apply();schedule();},scenes[cur].hold+1300);}
-playBtn.addEventListener('click',function(){playing=!playing;playBtn.textContent=playing?'⏸ 일시정지':'▶ 자동 재생';if(playing){cur=(cur+1)%scenes.length;apply();schedule();}else clearTimeout(timer);});
-document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){playing=false;playBtn.textContent='▶ 자동 재생';clearTimeout(timer);cur=+b.dataset.go;apply();});});
-window.addEventListener('resize',size);size();
-if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){playing=false;playBtn.textContent='▶ 자동 재생';cur=1;apply();}else schedule();
+var D=document,sheet=D.getElementById('sheet'),fit=D.getElementById('fit'),step=D.getElementById('step'),playBtn=D.getElementById('play'),stage=D.getElementById('stage'),fw=D.getElementById('flatwrap');
+var ua=navigator.userAgent||'';var q=location.search||'';
+var flat=/iP(hone|od|ad)/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)||/KAKAOTALK|NAVER|Line\//i.test(ua);
+if(q.indexOf('mode=3d')>=0)flat=false;if(q.indexOf('mode=flat')>=0)flat=true;
+var s3=[{"cls": "fold", "flip": false, "label": "접힌 상태 · 앞표지", "hold": 2600, "go": "cover"}, {"cls": "", "flip": false, "label": "안쪽면 · 수업 방식 · 시즌제 · 3년 로드맵", "hold": 5600, "go": "inside"}, {"cls": "", "flip": true, "label": "바깥면 · 상담 안내 · 앞표지", "hold": 5000, "go": "outside"}, {"cls": "", "flip": false, "label": "다시 안쪽면으로", "hold": 1400, "go": "back"}];
+var sF=[{v:'cover',label:'접힌 상태 · 앞표지',hold:2600},{v:'inside',label:'안쪽면 · 수업 방식 · 시즌제 · 3년 로드맵',hold:5600},{v:'outside',label:'바깥면 · 상담 안내 · 앞표지',hold:5200}];
+var scenes=flat?sF:s3,cur=0,timer=null,playing=true,S=1;
+if(flat)stage.className+=' flat';
+function size(){var w=window.innerWidth||D.documentElement.clientWidth||375,h=window.innerHeight||D.documentElement.clientHeight||700;S=Math.min(w*0.96/1123,Math.max(260,h-220)/794,1.1);fit.style.width=Math.round(1123*S)+'px';fit.style.height=Math.round(794*S)+'px';fw.style.webkitTransform=fw.style.transform='scale('+S+')';apply(true);}
+function label(sc,i){step.innerHTML='<b>'+(i+1)+'</b><span>'+sc.label+'</span>';}
+var curV='cover';
+function showFlat(v,instant){if(v===curV&&!instant)return;var a=D.getElementById('v-'+curV),b=D.getElementById('v-'+v);if(instant||!a){if(a)a.className='fview';b.className='fview on';curV=v;return;}
+ a.className='fview on squish';setTimeout(function(){a.className='fview';b.className='fview on squish';curV=v;setTimeout(function(){b.className='fview on';},30);},380);}
+function apply(instant){var sc=scenes[cur];label(sc,cur);
+ if(flat){showFlat(sc.v,instant);return;}
+ sheet.className='sheet '+sc.cls;var t=sc.flip?'translateX('+(1123*S)+'px) scale('+S+') rotateY(180deg)':'scale('+S+')';sheet.style.webkitTransform=sheet.style.transform=t;}
+function schedule(){clearTimeout(timer);if(playing)timer=setTimeout(function(){cur=(cur+1)%scenes.length;apply();schedule();},scenes[cur].hold+(flat?800:1300));}
+playBtn.onclick=function(){playing=!playing;playBtn.textContent=playing?'일시정지':'자동 재생';if(playing){cur=(cur+1)%scenes.length;apply();schedule();}else clearTimeout(timer);};
+var bs=D.querySelectorAll('[data-go]');for(var i=0;i<bs.length;i++){(function(b){b.onclick=function(){playing=false;playBtn.textContent='자동 재생';clearTimeout(timer);var g=b.getAttribute('data-go');for(var k=0;k<scenes.length;k++){if((flat?scenes[k].v:scenes[k].go)===g){cur=k;break;}}apply();};})(bs[i]);}
+window.addEventListener('resize',function(){size();});
+try{size();}catch(e){flat=true;stage.className+=' flat';scenes=sF;size();}
+var rm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(rm){playing=false;playBtn.textContent='자동 재생';}else schedule();
 })();
 </script>
 </body>
