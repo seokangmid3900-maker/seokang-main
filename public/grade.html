@@ -103,14 +103,14 @@ td{border-bottom:1px solid var(--line);padding:7px 8px}
 <script>
 const $=s=>document.querySelector(s);
 let PW='',TEST=null,ROWS=[],CUR=null,WRONG=new Set();
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const toast=t=>{const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',1800);};
 async function api(body){const r=await fetch('/api/grade',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:PW,...body})});const j=await r.json();if(!j.ok)throw new Error(j.message||'오류');TEST=j.test;ROWS=j.rows;return j;}
 // 화면에서도 같은 계산 (즉시 미리보기)
 function analyze(wrong){const W=new Set(wrong);let total=0,got=0;const U={};
   TEST.questions.forEach(q=>{const u=U[q.unit]||(U[q.unit]={unit:q.unit,total:0,got:0});u.total+=+q.pts;total+=+q.pts;if(!W.has(q.no)){u.got+=+q.pts;got+=+q.pts;}});
   const units=Object.values(U).map(u=>({...u,rate:u.total?Math.round(u.got/u.total*100):0}));const rate=total?Math.round(got/total*100):0;
-  return {total,got,rate,units,course:rate>=(TEST.cut.sunpul??85)?'선풀 (상 · HC · AA)':rate>=TEST.cut.hinpul?'힌풀 (중 · AB · BA)':'함풀 (하 · BB · CC)'};}
+  return {total,got,rate,units,course:rate>=((TEST.cut.sunpul==null?85:TEST.cut.sunpul))?'선풀 (상 · HC · AA)':rate>=TEST.cut.hinpul?'힌풀 (중 · AB · BA)':'함풀 (하 · BB · CC)'};}
 function drawList(){
   let html='',slot=null;
   ROWS.forEach(r=>{if(r.slot!==slot){slot=r.slot;html+=`<div class="slotH">${esc(slot||'회차 없음')} 회차</div>`;}
@@ -150,11 +150,11 @@ function drawStat(){
   done.forEach(r=>TEST.questions.forEach(q=>{U[q.unit].t+=+q.pts;if(!r.score.wrong.includes(q.no))U[q.unit].g+=+q.pts;}));
   $('#sUnit').innerHTML=Object.entries(U).map(([u,v])=>{const p=v.t?Math.round(v.g/v.t*100):0;return `<div class="ub"><span>${esc(u)}</span><i><em style="width:${p}%"></em></i><b>${p}%</b></div>`;}).join('')||'<div class="empty">채점된 학생이 없습니다.</div>';
   const bins=[[90,101],[80,90],[70,80],[60,70],[0,60]];const mx=Math.max(1,...bins.map(([a,b])=>res.filter(x=>x.rate>=a&&x.rate<b).length));
-  $('#sDist').innerHTML=bins.map(([a,b])=>{const c=res.filter(x=>x.rate>=a&&x.rate<b).length;return `<div class="ub"><span>${b>100?'90% 이상':a===0?'60% 미만':a+'%대'}</span><i><em style="width:${c/mx*100}%;background:var(--gold)"></em></i><b>${c}명</b></div>`;}).join('')+`<p style="font-size:13px;color:var(--sub);margin-top:8px">추천 기준: 선풀 ${TEST.cut.sunpul??85}% 이상 · 힌풀 ${TEST.cut.hinpul}% 이상 · 그 아래 함풀</p>`;
+  $('#sDist').innerHTML=bins.map(([a,b])=>{const c=res.filter(x=>x.rate>=a&&x.rate<b).length;return `<div class="ub"><span>${b>100?'90% 이상':a===0?'60% 미만':a+'%대'}</span><i><em style="width:${c/mx*100}%;background:var(--gold)"></em></i><b>${c}명</b></div>`;}).join('')+`<p style="font-size:13px;color:var(--sub);margin-top:8px">추천 기준: 선풀 ${(TEST.cut.sunpul==null?85:TEST.cut.sunpul)}% 이상 · 힌풀 ${TEST.cut.hinpul}% 이상 · 그 아래 함풀</p>`;
   $('#sQ').innerHTML=`<table><thead><tr><th>번호</th>${TEST.questions.map(q=>`<th>${q.no}</th>`).join('')}</tr></thead><tbody><tr><td>단원</td>${TEST.questions.map(q=>`<td style="font-size:11px;color:var(--sub)">${esc(q.unit)}</td>`).join('')}</tr><tr><td>정답률</td>${TEST.questions.map(q=>{const p=done.length?Math.round(done.filter(r=>!r.score.wrong.includes(q.no)).length/done.length*100):0;return `<td style="font-weight:700;color:${p<50?'var(--red)':'var(--navy)'}">${done.length?p+'%':'-'}</td>`;}).join('')}</tr></tbody></table>`;
 }
 function drawCfg(){
-  $('#cTitle').value=TEST.title;$('#cStrong').value=TEST.cut.strong;$('#cWeak').value=TEST.cut.weak;$('#cHin').value=TEST.cut.hinpul;$('#cSun').value=TEST.cut.sunpul??85;
+  $('#cTitle').value=TEST.title;$('#cStrong').value=TEST.cut.strong;$('#cWeak').value=TEST.cut.weak;$('#cHin').value=TEST.cut.hinpul;$('#cSun').value=(TEST.cut.sunpul==null?85:TEST.cut.sunpul);
   const draw=qs=>{$('#cRows').innerHTML=qs.map((q,i)=>`<tr><td>${i+1}</td><td><input type="text" value="${esc(q.unit)}" data-i="${i}" data-k="unit" aria-label="${i+1}번 단원"></td><td><input type="number" value="${q.pts}" data-i="${i}" data-k="pts" min="0" aria-label="${i+1}번 배점"></td><td><button class="btn r" style="min-height:32px;padding:4px 10px" data-del="${i}">삭제</button></td></tr>`).join('');
     $('#cTotal').textContent=`총 ${qs.length}문항 · ${qs.reduce((s,q)=>s+(+q.pts||0),0)}점`;
     document.querySelectorAll('#cRows input').forEach(el=>el.oninput=()=>{qs[el.dataset.i][el.dataset.k]=el.dataset.k==='pts'?+el.value:el.value;$('#cTotal').textContent=`총 ${qs.length}문항 · ${qs.reduce((s,q)=>s+(+q.pts||0),0)}점`;});
@@ -166,7 +166,7 @@ function drawCfg(){
 }
 function drawAll(){$('#ttl').textContent=TEST.title+' 분석실';drawList();if(CUR){CUR=ROWS.find(r=>r.id===CUR.id);CUR?drawPanel():null;}drawStat();drawCfg();}
 document.querySelectorAll('#tabs [data-t]').forEach(b=>b.onclick=()=>{document.querySelectorAll('#tabs [data-t]').forEach(x=>x.classList.toggle('on',x===b));['grade','stat','cfg'].forEach(t=>$('#v-'+t).style.display=t===b.dataset.t?(t==='grade'?'grid':'block'):'none');if(b.dataset.t==='stat')drawStat();});
-$('#csv').onclick=()=>{const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+$('#csv').onclick=()=>{const q=v=>`"${String(v==null?'':v).replace(/"/g,'""')}"`;
   const head=['학생','학교','회차','점수','만점','정답률','추천 과정',...TEST.questions.map(x=>x.no+'번'),'결석'];
   const lines=ROWS.map(r=>{const s=r.score,a=s&&!s.absent?s.result:null;return [r.studentName,r.school,r.slot,a?a.got:'',a?a.total:'',a?a.rate+'%':'',a?(s.course||a.course):'',...TEST.questions.map(x=>a?(s.wrong.includes(x.no)?'X':'O'):''),s?.absent?'결석':''].map(q).join(',');});
   const u=URL.createObjectURL(new Blob(['﻿'+[head.map(q).join(','),...lines].join('\n')],{type:'text/csv'}));const l=document.createElement('a');l.href=u;l.download=`중등관_반배치_결과_${new Date().toISOString().slice(0,10)}.csv`;l.click();};

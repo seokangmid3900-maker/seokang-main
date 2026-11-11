@@ -86,7 +86,7 @@ textarea{width:180px;min-height:52px}
 <script>
 const $=s=>document.querySelector(s);
 let PW='',APPS=[],STATUSES=[],FILTER='전체',SMS={ready:false,phones:[]},CUR=null;
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const toast=t=>{const e=$('#toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',1800);};
 const fmt=iso=>{const d=new Date(iso);return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;};
 async function api(body){
@@ -149,7 +149,7 @@ $('#go').onclick=login;$('#pw').onkeydown=e=>{if(e.key==='Enter')login();};
 $('#reload').onclick=async()=>{try{await api({action:'list'});toast('새로고침했습니다');}catch(e){toast(e.message);}};
 $('#csv').onclick=()=>{
   const cols=[['createdAt','신청일시'],['studentName','학생'],['school','학교'],['grade','학년'],['member','재원'],['parentName','학부모'],['parentPhone','연락처'],['method','상담 방법'],['when','연락 시간'],['days','희망 요일'],['study','현재 학습'],['progress','진도'],['type','구분'],['slot','회차'],['referrer','소개'],['adConsent','소식 수신 동의'],['source','경로'],['memo','궁금한 점'],['status','상태'],['adminMemo','관리 메모']];
-  const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+  const q=v=>`"${String(v==null?'':v).replace(/"/g,'""')}"`;
   const csv='﻿'+[cols.map(c=>q(c[1])).join(','),...APPS.map(a=>cols.map(c=>q(c[0]==='createdAt'?new Date(a.createdAt).toLocaleString('ko-KR'):a[c[0]])).join(','))].join('\n');
   const u=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));const l=document.createElement('a');l.href=u;l.download=`중등관_상담신청_${new Date().toISOString().slice(0,10)}.csv`;l.click();
 };

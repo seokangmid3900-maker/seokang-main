@@ -59,7 +59,7 @@ footer b{color:var(--gold);font-family:'Jua',sans-serif;font-weight:400;font-siz
 <body>
 <div class="wrap" id="app"><div class="msg j">리포트를 불러오는 중…</div></div>
 <script>
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const TIP={
  '약수와 배수':'약수 · 배수의 뜻과 최대공약수 · 최소공배수 구하는 과정을 다시 정리하면 중1 소인수분해가 훨씬 쉬워집니다.',
  '분수·소수의 계산':'분수 · 소수의 사칙계산을 정확하게 하는 연습이 필요합니다. 중1 정수와 유리수 계산의 바탕이 됩니다.',
