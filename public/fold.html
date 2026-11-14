@@ -51,6 +51,12 @@ header p{margin:6px 0 0;font-size:14px;color:#6B5A3A}
 </style>
 </head>
 <body>
+<nav id="skNav" aria-label="본관 메뉴" style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid #E6E8EF">
+<style>#skNav .in{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:6px;padding:8px 12px;overflow-x:auto;scrollbar-width:none}#skNav .in::-webkit-scrollbar{display:none}#skNav b{font-family:'Jua',sans-serif;font-weight:400;font-size:15px;color:#2D3B66;white-space:nowrap;margin-right:6px}#skNav a{flex-shrink:0;display:inline-flex;align-items:center;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:700;color:#2D3B66;text-decoration:none;background:#F2F3F7;white-space:nowrap}#skNav a[aria-current]{background:#2D3B66;color:#fff}#skNav a[href="/test"]:not([aria-current]){background:#FFF1E3;color:#C24E00}</style>
+<div class="in"><b>서강수학원 본관</b><a href="/">상담 신청</a><a href="/leaflet">온라인 리플렛</a><a href="/fold" aria-current="page">리플렛 펼쳐 보기</a><a href="/test">추가 반배치고사</a><a href="/report">보고서 샘플</a></div>
+<script>(function(){try{var c=document.querySelector('#skNav a[aria-current]');if(c&&c.parentNode.scrollWidth>c.parentNode.clientWidth)c.parentNode.scrollLeft=c.offsetLeft-60;}catch(e){}try{var f=new URLSearchParams(location.search).get('from');if(!f)return;document.querySelectorAll('#skNav a').forEach(function(a){a.href=a.getAttribute('href')+'?from='+encodeURIComponent(f);});}catch(e){}})();</script>
+</nav>
+
 <header>
 <h1>서강수학원 중등관 리플렛, 펼쳐 보세요</h1>
 <p>A4 가로 한 장 · 앞뒤 인쇄 후 반으로 접는 방식</p>
