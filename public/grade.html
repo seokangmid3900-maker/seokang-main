@@ -116,7 +116,7 @@ function drawList(){
   ROWS.forEach(r=>{if(r.slot!==slot){slot=r.slot;html+=`<div class="slotH">${esc(slot||'회차 없음')} 회차</div>`;}
     const s=r.score;const tag=!s?'<span class="tag">미채점</span>':s.absent?'<span class="tag abs">결석</span>':`<span class="tag done">${s.result.got}점</span>`;
     html+=`<button data-id="${r.id}" class="${CUR&&CUR.id===r.id?'on':''}"><span><b>${esc(r.studentName)}</b> <small style="color:var(--sub)">${esc(r.school)}</small></span>${tag}</button>`;});
-  $('#list').innerHTML=html||'<div class="empty">추가 반배치 신청자가 없습니다.</div>';
+  $('#list').innerHTML=html||'<div class="empty">진단평가 신청자가 없습니다.</div>';
   document.querySelectorAll('#list button').forEach(b=>b.onclick=()=>open(ROWS.find(r=>r.id===b.dataset.id)));
 }
 function open(r){CUR=r;WRONG=new Set(r.score?.wrong||[]);drawList();drawPanel();}

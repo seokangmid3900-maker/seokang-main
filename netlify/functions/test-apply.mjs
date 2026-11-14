@@ -30,9 +30,9 @@ export default async (req) => {
     studentName: clean(d.studentName, 30), school: clean(d.school, 40), grade: "초6 (예비중1)",
     member: clean(d.member, 20), parentName: clean(d.parentName, 30), parentPhone: clean(d.parentPhone, 20),
     study: clean(d.study, 30), progress: clean(d.progress, 60), memo: clean(d.memo, 500),
-    referrer: clean(d.referrer, 30), source: clean(d.source, 30) || "추가 반배치 페이지",
+    referrer: clean(d.referrer, 30), source: clean(d.source, 30) || "진단평가 페이지",
     adConsent: d.adConsent === true, adConsentAt: d.adConsent === true ? new Date().toISOString() : null,
-    method: "추가 반배치 후 결과 상담", when: `${EVENT.dateLabel} ${slot}`, days: "",
+    method: "진단평가 후 결과 상담", when: `${EVENT.dateLabel} ${slot}`, days: "",
   };
   if (!EVENT.slots[slot]) return json({ ok: false, message: "회차를 선택해 주세요." }, 400);
   if (!app.studentName || !app.school || !app.member) return json({ ok: false, message: "필수 항목을 모두 입력해 주세요." }, 400);
@@ -56,7 +56,7 @@ export default async (req) => {
   const phones = adminPhones();
   if (phones.length) {
     const site = process.env.URL || new URL(req.url).origin;
-    const r = await sendSms(phones, `[중등관 추가 반배치 신청]\n${app.studentName} (${app.school})\n${EVENT.dateLabel} ${slot} 회차\n학부모 ${app.parentPhone}${app.referrer ? "\n소개: " + app.referrer : ""}\n${site}/admin.html`);
+    const r = await sendSms(phones, `[본관 진단평가 신청]\n${app.studentName} (${app.school})\n${EVENT.dateLabel} ${slot} 회차\n학부모 ${app.parentPhone}${app.referrer ? "\n소개: " + app.referrer : ""}\n${site}/admin.html`);
     rec.adminAlert = { at: new Date().toISOString(), ok: r.ok, reason: r.reason || "" };
     await st.setJSON(`app/${id}`, rec);
   }
