@@ -145,9 +145,9 @@ footer b{color:var(--gold);font-family:'Jua',sans-serif;font-weight:400;font-siz
 </head>
 <body>
 <nav id="skNav" aria-label="본관 메뉴" style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom:1px solid #E6E8EF">
-<style>#skNav .in{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:6px;padding:8px 12px;overflow-x:auto;scrollbar-width:none}#skNav .in::-webkit-scrollbar{display:none}#skNav b{font-family:'Jua',sans-serif;font-weight:400;font-size:15px;color:#2D3B66;white-space:nowrap;margin-right:6px}#skNav a{flex-shrink:0;display:inline-flex;align-items:center;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:700;color:#2D3B66;text-decoration:none;background:#F2F3F7;white-space:nowrap}#skNav a[aria-current]{background:#2D3B66;color:#fff}#skNav a[href="/test"]:not([aria-current]){background:#FFF1E3;color:#C24E00}</style>
-<div class="in"><b>서강수학원 본관</b><a href="/">상담 신청</a><a href="/leaflet" aria-current="page">온라인 리플렛</a><a href="/fold">리플렛 펼쳐 보기</a><a href="/test">무료 진단평가</a><a href="/report">보고서 샘플</a></div>
-<script>(function(){try{var c=document.querySelector('#skNav a[aria-current]');if(c&&c.parentNode.scrollWidth>c.parentNode.clientWidth)c.parentNode.scrollLeft=c.offsetLeft-60;}catch(e){}try{var f=new URLSearchParams(location.search).get('from');if(!f)return;document.querySelectorAll('#skNav a').forEach(function(a){a.href=a.getAttribute('href')+'?from='+encodeURIComponent(f);});}catch(e){}})();</script>
+<style>#skNav .in{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:6px;padding:8px 12px;overflow-x:auto;scrollbar-width:none}#skNav .in::-webkit-scrollbar{display:none}#skNav b{font-family:'Jua',sans-serif;font-weight:400;font-size:15px;color:#2D3B66;white-space:nowrap;margin-right:6px}#skNav a{flex-shrink:0;display:inline-flex;align-items:center;min-height:38px;padding:0 14px;border-radius:999px;font-size:14px;font-weight:700;color:#2D3B66;text-decoration:none;background:#F2F3F7;white-space:nowrap}#skNav a[aria-current]{background:#2D3B66;color:#fff}#skNav a[href="/test"]:not([aria-current]){background:#FFF1E3;color:#C24E00}#skNav a.skIg{background:linear-gradient(45deg,#F58529,#DD2A7B 55%,#8134AF);color:#fff}</style>
+<div class="in"><b>서강수학원 본관</b><a href="/">상담 신청</a><a href="/leaflet" aria-current="page">온라인 리플렛</a><a href="/fold">리플렛 펼쳐 보기</a><a href="/test">무료 진단평가</a><a href="/report">보고서 샘플</a><a class="skIg" href="https://www.instagram.com/seokang3900/" target="_blank" rel="noopener">📷 인스타그램</a></div>
+<script>(function(){try{var c=document.querySelector('#skNav a[aria-current]');if(c&&c.parentNode.scrollWidth>c.parentNode.clientWidth)c.parentNode.scrollLeft=c.offsetLeft-60;}catch(e){}try{var f=new URLSearchParams(location.search).get('from');if(!f)return;document.querySelectorAll('#skNav a').forEach(function(a){if(a.getAttribute('href').charAt(0)!=='/')return;a.href=a.getAttribute('href')+'?from='+encodeURIComponent(f);});}catch(e){}})();</script>
 </nav>
 <div class="wrap">
 
@@ -261,7 +261,7 @@ footer b{color:var(--gold);font-family:'Jua',sans-serif;font-weight:400;font-siz
   <p class="lead" style="margin-top:12px">서울 송파구 거마로 51 · 서강수학원 본관</p>
 </section>
 
-<footer><b>서강수학원 중등관</b>SEOKANG MATH</footer>
+<footer><b>서강수학원 중등관</b>SEOKANG MATH<a class="skIgF" href="https://www.instagram.com/seokang3900/" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:inherit;font-weight:700;text-decoration:none">📷 @seokang3900</a></footer>
 </div>
 
 <nav class="bar" aria-label="빠른 상담">
